@@ -1,0 +1,39 @@
+# Задание 2, п. 7: ReplicaSet — набор подов с заданным числом реплик.
+#
+# ReplicaSet следит, чтобы в любой момент существовало ровно `replicas` подов,
+# соответствующих `selector`. Удалили pod — контроллер создаст новый.
+#
+# Проверка:
+#   kubectl get rs -n lab4-task2
+#   kubectl get pods -n lab4-task2 -l app=web-rs -o wide
+#   kubectl delete pod <один из подов> -n lab4-task2      # RS создаст замену
+#   kubectl scale rs web-rs --replicas=5 -n lab4-task2   # масштабирование
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: web-rs
+  namespace: lab4-task2
+  labels:
+    app: web-rs
+    lab: "4"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-rs
+  template:
+    metadata:
+      labels:
+        app: web-rs
+        lab: "4"
+    spec:
+      containers:
+        - name: web
+          image: nginx:alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 32Mi

@@ -1,0 +1,5 @@
+# Kubernetes
+*.kubeconfig
+kubeconfig*.yaml
+__pycache__/
+*.log

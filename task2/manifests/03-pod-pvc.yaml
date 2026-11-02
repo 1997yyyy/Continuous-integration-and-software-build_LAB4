@@ -1,0 +1,32 @@
+# Задание 2, п. 6: pod, монтирующий PVC.
+#
+# Данные лежат в /data на выделенном томе, поэтому переживают удаление пода:
+# проверка — записать файл, удалить pod, создать заново, прочитать файл.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-demo
+  namespace: lab4-task2
+  labels:
+    app: pvc-demo
+    lab: "4"
+spec:
+  containers:
+    - name: app
+      image: python:3.12.1-alpine
+      imagePullPolicy: IfNotPresent
+      command:
+        - /bin/sh
+        - -c
+        - sleep 3600
+      volumeMounts:
+        - name: persistent-data
+          mountPath: /data
+      resources:
+        requests:
+          cpu: 20m
+          memory: 32Mi
+  volumes:
+    - name: persistent-data
+      persistentVolumeClaim:
+        claimName: data-pvc

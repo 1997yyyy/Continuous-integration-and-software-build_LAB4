@@ -1,0 +1,14 @@
+$ kubectl get pods -n kube-system -o wide
+NAME                                         READY   STATUS    RESTARTS   AGE   IP           NODE                 NOMINATED NODE   READINESS GATES
+coredns-559f6c778d-gx6l6                     1/1     Running   0          50m   10.244.0.2   lab4-control-plane   <none>           <none>
+coredns-559f6c778d-gzzgt                     1/1     Running   0          50m   10.244.0.4   lab4-control-plane   <none>           <none>
+etcd-lab4-control-plane                      1/1     Running   0          50m   172.24.0.3   lab4-control-plane   <none>           <none>
+kindnet-9nckc                                1/1     Running   0          49m   172.24.0.4   lab4-worker2         <none>           <none>
+kindnet-k6dnv                                1/1     Running   0          49m   172.24.0.2   lab4-worker          <none>           <none>
+kindnet-xngkg                                1/1     Running   0          50m   172.24.0.3   lab4-control-plane   <none>           <none>
+kube-apiserver-lab4-control-plane            1/1     Running   0          50m   172.24.0.3   lab4-control-plane   <none>           <none>
+kube-controller-manager-lab4-control-plane   1/1     Running   0          50m   172.24.0.3   lab4-control-plane   <none>           <none>
+kube-proxy-492rx                             1/1     Running   0          49m   172.24.0.2   lab4-worker          <none>           <none>
+kube-proxy-9hgcs                             1/1     Running   0          50m   172.24.0.3   lab4-control-plane   <none>           <none>
+kube-proxy-pjjmc                             1/1     Running   0          49m   172.24.0.4   lab4-worker2         <none>           <none>
+kube-scheduler-lab4-control-plane            1/1     Running   0          50m   172.24.0.3   lab4-control-plane   <none>           <none>

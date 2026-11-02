@@ -1,0 +1,14 @@
+$ kubectl get pods -n kube-system -o custom-columns=NAME:.metadata.name,NODE:.spec.nodeName,IMAGE:.spec.containers[0].image
+NAME                                         NODE                 IMAGE
+coredns-559f6c778d-gx6l6                     lab4-control-plane   registry.k8s.io/coredns/coredns:v1.14.6
+coredns-559f6c778d-gzzgt                     lab4-control-plane   registry.k8s.io/coredns/coredns:v1.14.6
+etcd-lab4-control-plane                      lab4-control-plane   registry.k8s.io/etcd:3.7.0-0
+kindnet-9nckc                                lab4-worker2         docker.io/kindest/kindnetd:v20260820-69b56db7
+kindnet-k6dnv                                lab4-worker          docker.io/kindest/kindnetd:v20260820-69b56db7
+kindnet-xngkg                                lab4-control-plane   docker.io/kindest/kindnetd:v20260820-69b56db7
+kube-apiserver-lab4-control-plane            lab4-control-plane   registry.k8s.io/kube-apiserver:v1.37.0
+kube-controller-manager-lab4-control-plane   lab4-control-plane   registry.k8s.io/kube-controller-manager:v1.37.0
+kube-proxy-492rx                             lab4-worker          registry.k8s.io/kube-proxy:v1.37.0
+kube-proxy-9hgcs                             lab4-control-plane   registry.k8s.io/kube-proxy:v1.37.0
+kube-proxy-pjjmc                             lab4-worker2         registry.k8s.io/kube-proxy:v1.37.0
+kube-scheduler-lab4-control-plane            lab4-control-plane   registry.k8s.io/kube-scheduler:v1.37.0

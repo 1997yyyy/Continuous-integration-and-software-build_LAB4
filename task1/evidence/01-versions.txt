@@ -1,0 +1,8 @@
+$ docker version --format "{{.Server.Version}} ({{.Server.Os}}/{{.Server.Arch}})"
+29.8.1 (linux/amd64)
+$ kind version
+kind v0.33.0 go1.26.7 windows/amd64
+$ kubectl version
+Client Version: v1.36.1
+Kustomize Version: v5.8.1
+Server Version: v1.37.0

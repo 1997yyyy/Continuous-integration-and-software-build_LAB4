@@ -1,0 +1,44 @@
+$ kubectl get pod volume-demo -n lab4-task2 -o wide
+NAME          READY   STATUS    RESTARTS   AGE   IP           NODE          NOMINATED NODE   READINESS GATES
+volume-demo   2/2     Running   0          13m   10.244.1.2   lab4-worker   <none>           <none>
+
+$ kubectl describe pod volume-demo -n lab4-task2 | sed -n "/Volumes:/,/Events:/p"
+Volumes:
+  shared-data:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  64Mi
+  kube-api-access-6zks9:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+
+$ kubectl exec volume-demo -c writer -- ls -l /data
+total 24
+-rw-r--r--    1 root     root          8409 Nov  2 07:19 index.html
+-rw-r--r--    1 root     root          8409 Nov  2 07:19 log.txt
+
+$ kubectl exec volume-demo -c writer -- head -3 /data/log.txt
+record 1 from volume-demo at 2026-11-02T07:06:07
+record 2 from volume-demo at 2026-11-02T07:06:12
+record 3 from volume-demo at 2026-11-02T07:06:17
+
+$ kubectl exec volume-demo -c writer -- wc -l /data/log.txt
+167 /data/log.txt
+
+$ kubectl exec volume-demo -c reader -- ls -l /usr/share/nginx/html
+total 24
+-rw-r--r--    1 root     root          8409 Nov  2 07:19 index.html
+-rw-r--r--    1 root     root          8409 Nov  2 07:19 log.txt
+
+$ kubectl exec volume-demo -c reader -- wget -qO- http://localhost/ | head -3
+record 1 from volume-demo at 2026-11-02T07:06:07
+record 2 from volume-demo at 2026-11-02T07:06:12
+record 3 from volume-demo at 2026-11-02T07:06:17

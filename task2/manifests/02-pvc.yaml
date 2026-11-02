@@ -1,0 +1,23 @@
+# Задание 2, п. 6 (вторая часть): PersistentVolumeClaim.
+#
+# PVC — это запрос на хранилище. В kind уже есть StorageClass `standard`
+# (provisioner rancher.io/local-path), поэтому отдельный PersistentVolume
+# создавать вручную не нужно: он будет создан динамически и привязан к этому PVC.
+#
+# Режим WaitForFirstConsumer: привязка произойдёт только после того,
+# как появится pod, который этот PVC использует.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-pvc
+  namespace: lab4-task2
+  labels:
+    app: pvc-demo
+    lab: "4"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 128Mi

@@ -1,0 +1,10 @@
+# Пространство имён для задания 2.
+# Позволяет не смешивать демонстрационные объекты с системными и легко удалить всё разом:
+#   kubectl delete namespace lab4-task2
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: lab4-task2
+  labels:
+    lab: "4"
+    group: "13"

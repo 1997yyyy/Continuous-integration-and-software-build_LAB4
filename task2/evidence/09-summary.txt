@@ -1,0 +1,16 @@
+$ kubectl get all -n lab4-task2
+NAME               READY   STATUS    RESTARTS   AGE
+pod/pvc-demo       1/1     Running   0          34s
+pod/volume-demo    2/2     Running   0          15m
+pod/web-rs-mnbpm   1/1     Running   0          15m
+pod/web-rs-pjxvn   1/1     Running   0          30s
+pod/web-rs-rpdnc   1/1     Running   0          15m
+
+NAME                     DESIRED   CURRENT   READY   AGE
+replicaset.apps/web-rs   3         3         3       15m
+
+$ kubectl get pvc,pv -n lab4-task2
+NAME       STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data-pvc   Bound    pvc-3382a6ff-7694-46d0-b34b-37d919f323c1   128Mi      RWO            standard       <unset>                 15m
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+pvc-3382a6ff-7694-46d0-b34b-37d919f323c1   128Mi      RWO            Delete           Bound    lab4-task2/data-pvc   standard       <unset>                          15m

@@ -1,0 +1,5 @@
+$ kubectl get nodes -L tier
+NAME                 STATUS   ROLES           AGE   VERSION   TIER
+lab4-control-plane   Ready    control-plane   18m   v1.37.0   control-plane
+lab4-worker          Ready    <none>          18m   v1.37.0   worker
+lab4-worker2         Ready    <none>          18m   v1.37.0   worker

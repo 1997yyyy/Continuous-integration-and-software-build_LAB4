@@ -1,0 +1,31 @@
+$ kubectl get pvc -n lab4-task2
+NAME       STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data-pvc   Bound    pvc-3382a6ff-7694-46d0-b34b-37d919f323c1   128Mi      RWO            standard       <unset>                 13m
+
+$ kubectl get pv
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+pvc-3382a6ff-7694-46d0-b34b-37d919f323c1   128Mi      RWO            Delete           Bound    lab4-task2/data-pvc   standard       <unset>                          13m
+
+$ kubectl describe pvc data-pvc -n lab4-task2 | sed -n "/Name:/,/Events:/p"
+Name:          data-pvc
+Namespace:     lab4-task2
+StorageClass:  standard
+Status:        Bound
+Volume:        pvc-3382a6ff-7694-46d0-b34b-37d919f323c1
+Labels:        app=pvc-demo
+               lab=4
+Annotations:   pv.kubernetes.io/bind-completed: yes
+               pv.kubernetes.io/bound-by-controller: yes
+               volume.beta.kubernetes.io/storage-provisioner: rancher.io/local-path
+               volume.kubernetes.io/selected-node: lab4-worker2
+               volume.kubernetes.io/storage-provisioner: rancher.io/local-path
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      128Mi
+Access Modes:  RWO
+VolumeMode:    Filesystem
+Used By:       pvc-demo
+Conditions:
+  Type     Status  LastProbeTime                     LastTransitionTime                Reason        Message
+  ----     ------  -----------------                 ------------------                ------        -------
+  Unused   False   Mon, 01 Jan 0001 00:00:00 +0000   Mon, 02 Nov 2026 10:09:27 +0300   PodUsingPVC   A pod is currently referencing this PVC
+Events:

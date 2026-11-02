@@ -1,0 +1,18 @@
+# 1) записываем файл в том
+$ kubectl exec pvc-demo -- sh -c "..."
+written by pod pvc-demo at 2026-11-02T07:20:05
+
+# 2) удаляем pod
+$ kubectl delete pod pvc-demo -n lab4-task2
+pod "pvc-demo" deleted from lab4-task2 namespace
+
+# 3) создаём pod заново из того же манифеста
+$ kubectl apply -f manifests/03-pod-pvc.yaml
+pod/pvc-demo created
+
+$ kubectl wait --for=condition=Ready pod/pvc-demo -n lab4-task2 --timeout=90s
+pod/pvc-demo condition met
+
+# 4) читаем файл в новом pod — данные на месте
+$ kubectl exec pvc-demo -- cat /data/persist.txt
+written by pod pvc-demo at 2026-11-02T07:20:05

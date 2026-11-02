@@ -1,0 +1,24 @@
+# исходное состояние
+$ kubectl get rs -n lab4-task2 web-rs
+NAME     DESIRED   CURRENT   READY   AGE
+web-rs   3         3         3       14m
+
+$ kubectl get pods -n lab4-task2 -l app=web-rs -o wide
+NAME           READY   STATUS    RESTARTS   AGE   IP           NODE           NOMINATED NODE   READINESS GATES
+web-rs-2qwjz   1/1     Running   0          11m   10.244.1.6   lab4-worker    <none>           <none>
+web-rs-mnbpm   1/1     Running   0          14m   10.244.2.3   lab4-worker2   <none>           <none>
+web-rs-rpdnc   1/1     Running   0          14m   10.244.1.4   lab4-worker    <none>           <none>
+
+# удаляем один pod: ReplicaSet должен создать замену
+$ kubectl delete pod web-rs-2qwjz -n lab4-task2
+pod "web-rs-2qwjz" deleted from lab4-task2 namespace
+
+$ kubectl get pods -n lab4-task2 -l app=web-rs -o wide
+NAME           READY   STATUS    RESTARTS   AGE   IP           NODE           NOMINATED NODE   READINESS GATES
+web-rs-mnbpm   1/1     Running   0          14m   10.244.2.3   lab4-worker2   <none>           <none>
+web-rs-pjxvn   1/1     Running   0          9s    10.244.1.8   lab4-worker    <none>           <none>
+web-rs-rpdnc   1/1     Running   0          14m   10.244.1.4   lab4-worker    <none>           <none>
+
+$ kubectl get rs -n lab4-task2 web-rs
+NAME     DESIRED   CURRENT   READY   AGE
+web-rs   3         3         3       14m

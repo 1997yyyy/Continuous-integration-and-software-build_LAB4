@@ -1,0 +1,2 @@
+$ kind get clusters
+lab4
